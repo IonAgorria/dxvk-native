@@ -6,6 +6,10 @@
 #ifdef _WIN32
 #define VK_USE_PLATFORM_WIN32_KHR 1
 #endif
+#ifdef __APPLE__
+//Remove this if VK_KHR_PORTABILITY_SUBSET_EXTENSION_NAME is moved out of vulkan_beta.h
+#define VK_ENABLE_BETA_EXTENSIONS 1
+#endif
 #include <vulkan/vulkan.h>
 #ifdef DXVK_NATIVE
 #include <vulkan/vulkan_native.h>

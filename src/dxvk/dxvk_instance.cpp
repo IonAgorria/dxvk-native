@@ -96,6 +96,9 @@ namespace dxvk {
     std::vector<DxvkExt*> insExtensionList = {{
       &insExtensions.khrGetSurfaceCapabilities2,
       &insExtensions.khrSurface,
+#ifdef __APPLE__
+      &insExtensions.khrPortabilityEnum,
+#endif
     }};
 
     // Hide VK_EXT_debug_utils behind an environment variable. This extension
@@ -144,6 +147,9 @@ namespace dxvk {
     info.ppEnabledLayerNames      = nullptr;
     info.enabledExtensionCount    = extensionNameList.count();
     info.ppEnabledExtensionNames  = extensionNameList.names();
+#ifdef __APPLE__
+    info.flags                    = VK_INSTANCE_CREATE_ENUMERATE_PORTABILITY_BIT_KHR;
+#endif
     
     VkInstance result = VK_NULL_HANDLE;
     VkResult status = m_vkl->vkCreateInstance(&info, nullptr, &result);
